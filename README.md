@@ -8,8 +8,10 @@
 
 | 首页 (明细) | 统计报表 | 功能演示 |
 | :---: | :---: | :---: |
-| ![首页截图](./IMG_5239.PNG)<img width="603" height="1311" alt="IMG_5239" src="https://github.com/user-attachments/assets/26a3618f-f093-4c55-9ebe-696c50554703" />
- | ![统计截图](./IMG_5240.PNG)<img width="603" height="1311" alt="IMG_5240" src="https://github.com/user-attachments/assets/cb52376a-02b9-4b85-b612-933395fc9efb" />| ![演示动画](./语音输入.GIF) ![语音输入](https://github.com/user-attachments/assets/3f82dad5-7d06-48d1-94fc-782228efee35)|
+| ![首页截图](./IMG_5239.PNG) <img width="603" height="1311" alt="IMG_5239" src="https://github.com/user-attachments/assets/e7347d7c-a8b9-410b-8c98-5df376bde63e" />
+| ![统计截图](./IMG_5240.PNG)<img width="603" height="1311" alt="IMG_5240" src="https://github.com/user-attachments/assets/1a50dd6a-b3ee-4f5c-9e1a-ed4675187ad4" />
+ | ![演示动画](./语音输入.GIF)![语音输入](https://github.com/user-attachments/assets/c561a5de-452b-424d-a498-20cc539cda67)
+ |
 
 ---
 
