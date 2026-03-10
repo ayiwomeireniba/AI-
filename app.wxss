@@ -1,0 +1,61 @@
+/**app.wxss**/
+page {
+  --primary-color: #ffcc33;
+  --primary-gradient: linear-gradient(135deg, #ffcc33 0%, #ffb700 100%);
+  --background-color: #f2efe9;
+  --card-white: #ffffff;
+  --success-color: #ffcc33;
+  --warning-color: #ff7070;
+  --text-main: #202124;
+  --text-sub: #8e8e93;
+  --radius-lg: 40rpx;
+  --radius-md: 24rpx;
+  --shadow-soft: 0 10rpx 30rpx rgba(0, 0, 0, 0.03);
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.3);
+
+  background-color: var(--background-color);
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, 'PingFang SC', 'Microsoft YaHei', 'Source Han Sans SC', 'Noto Sans CJK SC', Arial, sans-serif;
+  color: var(--text-main);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 0 32rpx;
+}
+
+/* 毛玻璃效果辅助类 */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+}
+
+/* 大圆角卡片辅助类 */
+.card {
+  background: var(--card-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  margin-bottom: 32rpx;
+  overflow: hidden;
+}
+
+/* 点击缩放动效 */
+.btn-scale {
+  transition: transform 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+.btn-scale:active {
+  transform: scale(0.92);
+}
+
+/* 列表入场渐显 */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20rpx); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-in {
+  animation: fadeIn 0.4s ease forwards;
+}
