@@ -32,7 +32,7 @@
   - 云函数 (Node.js)
   - 云数据库 (NoSQL)
 - **图表库**: [ECharts for WeChat](https://github.com/ecomfe/echarts-for-weixin)
-- **AI 能力**: 腾讯云 ASR (语音转文字) + AI 文本解析大模型
+- **AI 能力**: 腾讯云 ASR (语音转文字) +AI文本解析大模型(Deepseek)
 
 ---
 
