@@ -1,0 +1,228 @@
+<!-- pages/index/index.wxml -->
+<view class="container">
+  <!-- 顶部玻璃态卡片 -->
+  <view class="header-card glass">
+    <view class="header-top">
+      <view class="date-info">
+        <text class="today-text">今天</text>
+        <text class="date-text">{{todayDate}}</text>
+      </view>
+      <view class="consecutive-info" wx:if="{{showConsecutiveBadge}}">
+        <view class="badge-mini">
+          <text>🔥 连续 {{consecutiveDays}} 天</text>
+        </view>
+      </view>
+    </view>
+    
+    <view class="amount-section">
+      <text class="amount-label">今日总计</text>
+      <view class="amount-value" style="color: {{todayTotalColor}}">
+        <text class="currency">¥</text>
+        <text class="amount">{{todayTotal}}</text>
+      </view>
+    </view>
+    
+    <!-- 预算进度条 -->
+    <view class="budget-section" bindtap="openBudgetModal">
+      <view class="budget-info">
+        <text>日预算 ¥{{dailyBudget}} (点击修改)</text>
+        <text wx:if="{{isOverBudget}}" class="over-text">超预算 ¥{{overAmount}}</text>
+        <text wx:else>{{budgetProgress}}%</text>
+      </view>
+      <view class="progress-bg">
+        <view class="progress-bar" style="width: {{budgetProgress}}%; background: {{todayTotalColor}}"></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 今日账单列表 -->
+  <scroll-view scroll-y class="bill-list-scroll">
+    <view class="section-title-row">
+      <text class="section-title">今日账单</text>
+      <text class="bill-count" wx:if="{{bills.length > 0}}">{{bills.length}} 笔</text>
+    </view>
+
+    <!-- 分类分组账单 (手动实现折叠和左滑) -->
+    <view class="category-list" wx:if="{{groupedBills.length > 0}}">
+      <view class="category-group card" wx:for="{{groupedBills}}" wx:key="category" wx:for-item="group" wx:for-index="gIdx">
+        <view class="category-header fade-in" bindtap="toggleCategory" data-index="{{gIdx}}">
+          <view class="cat-left">
+            <view class="cat-icon">{{group.category === '餐饮' ? '🍱' : (group.category === '交通' ? '🚗' : (group.category === '购物' ? '🛍️' : '📝'))}}</view>
+            <text class="cat-name">{{group.category}}</text>
+          </view>
+          <view class="cat-right">
+            <text class="cat-total">¥{{group.total}}</text>
+            <text class="expand-icon {{group.expanded ? 'expanded' : ''}}">></text>
+          </view>
+        </view>
+        
+        <view class="bill-items-container" wx:if="{{group.expanded}}">
+          <movable-area class="movable-area" wx:for="{{group.bills}}" wx:key="id" wx:for-item="bill" wx:for-index="bIdx">
+            <movable-view class="movable-view" direction="horizontal" x="{{bill.x}}" bindtouchstart="onTouchStart" bindtouchend="onTouchEnd" data-gidx="{{gIdx}}" data-bidx="{{bIdx}}">
+              <view class="bill-item">
+                <view class="bill-main">
+                  <text class="bill-merchant">{{bill.merchant === '无' ? '日常消费' : bill.merchant}}</text>
+                  <text class="bill-desc">{{bill.emotion_summary}}</text>
+                </view>
+                <text class="bill-amount">¥{{bill.amount}}</text>
+              </view>
+              <view class="delete-btn btn-scale" bindtap="deleteBill" data-id="{{bill._id}}" data-gidx="{{gIdx}}" data-bidx="{{bIdx}}">删除</view>
+            </movable-view>
+          </movable-area>
+        </view>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state fade-in" wx:else>
+      <view class="empty-icon-box">
+        <text class="empty-icon">🍃</text>
+      </view>
+      <text class="empty-text">今日无消费，心灵更轻盈！</text>
+      <text class="empty-subtext">按住下方按钮开始记账</text>
+    </view>
+    
+    <view class="list-bottom-space"></view>
+  </scroll-view>
+
+  <!-- 底部固定录音区域 -->
+  <view class="fixed-bottom">
+    <!-- 录音波纹反馈 -->
+    <view class="voice-wave-container" wx:if="{{isRecording}}">
+      <view class="voice-wave-bar" style="height: {{30 + Math.random()*40}}rpx"></view>
+      <view class="voice-wave-bar" style="height: {{50 + Math.random()*50}}rpx"></view>
+      <view class="voice-wave-bar" style="height: {{40 + Math.random()*60}}rpx"></view>
+      <view class="voice-wave-bar" style="height: {{60 + Math.random()*40}}rpx"></view>
+      <view class="voice-wave-bar" style="height: {{30 + Math.random()*30}}rpx"></view>
+    </view>
+    
+    <view class="recording-time-float" wx:if="{{isRecording}}">
+      <text class="time-text">{{recordingTime}}s</text>
+    </view>
+
+    <view class="wechat-voice-container">
+      <view 
+        class="wechat-record-btn {{isRecording ? 'active' : ''}}"
+        bindtouchstart="onRecordTouchStart"
+        bindtouchend="onRecordTouchEnd"
+        bindtouchcancel="onRecordTouchCancel"
+      >
+        <text class="btn-text">{{isRecording ? '松开 结束' : '按住 记一笔'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 加载/AI解析 遮罩 -->
+  <view class="loading-mask glass" wx:if="{{loading}}">
+    <view class="loader"></view>
+    <text class="loading-text">AI 正在努力解析...</text>
+  </view>
+  
+  <!-- AI 确认弹窗 -->
+  <view class="modal-wrapper" wx:if="{{showResult}}">
+    <view class="modal-mask" bindtap="closeResult"></view>
+    <view class="modal-content card fade-in">
+      <view class="modal-header">
+        <text>AI 记账确认</text>
+        <view class="close-btn" bindtap="closeResult">×</view>
+      </view>
+      <view class="ai-bill-card">
+        <view class="edit-row">
+          <text class="edit-label">分类</text>
+          <input class="edit-input" value="{{aiResult.category}}" bindinput="updateAiField" data-field="category" />
+        </view>
+        <view class="edit-row">
+          <text class="edit-label">商户</text>
+          <input class="edit-input" value="{{aiResult.merchant}}" bindinput="updateAiField" data-field="merchant" />
+        </view>
+        <view class="edit-row main">
+          <text class="edit-label">金额</text>
+          <view class="amount-input-box">
+            <text class="edit-currency">¥</text>
+            <input class="edit-amount-input" type="digit" value="{{aiResult.amount}}" bindinput="updateAiField" data-field="amount" />
+          </view>
+        </view>
+        <view class="ai-summary">"{{aiResult.emotion_summary}}"</view>
+      </view>
+      <view class="modal-btns">
+        <button class="modal-btn edit" bindtap="editAIResult">转文字输入</button>
+        <button class="modal-btn confirm" bindtap="confirmAIResult">确认记账</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 多笔记账确认弹窗 -->
+  <view class="modal-wrapper" wx:if="{{showMultipleResult}}">
+    <view class="modal-mask" bindtap="closeMultipleResult"></view>
+    <view class="modal-content card fade-in">
+      <view class="modal-header">
+        <text>发现多笔账单 ({{multipleBills.length}}笔)</text>
+        <view class="close-btn" bindtap="closeMultipleResult">×</view>
+      </view>
+      <scroll-view scroll-y class="multiple-bills-list">
+        <view class="multiple-bill-card {{item.selected ? 'selected' : ''}}" wx:for="{{multipleBills}}" wx:key="id">
+          <view class="bill-check" bindtap="toggleMultipleBillSelection" data-index="{{index}}">
+            <view class="check-box {{item.selected ? 'checked' : ''}}"></view>
+          </view>
+          <view class="bill-edit-content">
+            <view class="multi-row">
+              <input class="multi-cat" value="{{item.category}}" bindinput="updateMultipleBillField" data-index="{{index}}" data-field="category" />
+              <view class="multi-amt-box">
+                <text>¥</text>
+                <input class="multi-amt" type="digit" value="{{item.amount}}" bindinput="updateMultipleBillField" data-index="{{index}}" data-field="amount" />
+              </view>
+            </view>
+            <input class="multi-merchant" value="{{item.merchant}}" bindinput="updateMultipleBillField" data-index="{{index}}" data-field="merchant" />
+          </view>
+        </view>
+      </scroll-view>
+      <view class="modal-btns">
+        <button class="modal-btn edit" bindtap="closeMultipleResult">取消</button>
+        <button class="modal-btn confirm" bindtap="confirmMultipleBills">一键记入</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 权限提示弹窗 -->
+  <view class="modal-wrapper" wx:if="{{showPermissionModal}}">
+    <view class="modal-mask" bindtap="closePermissionModal"></view>
+    <view class="modal-content card fade-in">
+      <view class="modal-header">
+        <text>需要麦克风权限</text>
+        <view class="close-btn" bindtap="closePermissionModal">×</view>
+      </view>
+      <view class="permission-body">
+        <view class="permission-icon-box">🎤</view>
+        <text class="permission-desc">语音记账需要使用麦克风进行录音，请在设置中开启授权。</text>
+      </view>
+      <view class="modal-btns">
+        <button class="modal-btn edit" bindtap="closePermissionModal">取消</button>
+        <button class="modal-btn confirm" open-type="openSetting" bindopensetting="onOpenSetting">去设置</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 预算修改弹窗 -->
+  <view class="modal-wrapper" wx:if="{{showBudgetModal}}">
+    <view class="modal-mask" bindtap="closeBudgetModal"></view>
+    <view class="modal-content card fade-in">
+      <view class="modal-header">
+        <text>设置日预算</text>
+        <view class="close-btn" bindtap="closeBudgetModal">×</view>
+      </view>
+      <view class="ai-bill-card">
+        <view class="edit-row main">
+          <text class="edit-label">预算</text>
+          <view class="amount-input-box">
+            <text class="edit-currency">¥</text>
+            <input class="edit-amount-input" type="digit" value="{{dailyBudget}}" focus="{{showBudgetModal}}" bindinput="onBudgetInput" />
+          </view>
+        </view>
+      </view>
+      <view class="modal-btns">
+        <button class="modal-btn edit" bindtap="closeBudgetModal">取消</button>
+        <button class="modal-btn confirm" bindtap="saveBudget">保存设置</button>
+      </view>
+    </view>
+  </view>
+</view>

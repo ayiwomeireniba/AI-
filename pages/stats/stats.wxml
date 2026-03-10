@@ -1,0 +1,51 @@
+<!-- pages/stats/stats.wxml -->
+<view class="container">
+  <!-- 顶部玻璃态日期选择器 -->
+  <view class="picker-card glass">
+    <picker mode="date" fields="month" value="{{selectedMonth}}" bindchange="onMonthChange">
+      <view class="month-selector">
+        <text class="selected-month">{{displayMonth}}</text>
+        <text class="picker-arrow">▼</text>
+      </view>
+    </picker>
+    
+    <view class="month-summary">
+      <view class="summary-item">
+        <text class="summary-label">本月支出</text>
+        <text class="summary-value">¥{{monthTotal}}</text>
+      </view>
+      <view class="summary-item">
+        <text class="summary-label">日均支出</text>
+        <text class="summary-value">¥{{dailyAvg}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 支出分类饼图 -->
+  <view class="chart-card card fade-in">
+    <view class="chart-header">
+      <text class="chart-title">支出占比 (按分类)</text>
+    </view>
+    <view class="chart-container">
+      <ec-canvas id="pie-chart" canvas-id="pie-chart" ec="{{ ecPie }}"></ec-canvas>
+      <!-- 如果没有 ECharts 组件，显示占位图 -->
+      <view class="chart-placeholder" wx:if="{{!isEchartsReady}}">
+        <text>正在生成饼图...</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 每日支出趋势折线图 -->
+  <view class="chart-card card fade-in" style="animation-delay: 0.1s">
+    <view class="chart-header">
+      <text class="chart-title">支出趋势 (按天)</text>
+    </view>
+    <view class="chart-container">
+      <ec-canvas id="line-chart" canvas-id="line-chart" ec="{{ ecLine }}"></ec-canvas>
+      <!-- 如果没有 ECharts 组件，显示占位图 -->
+      <view class="chart-placeholder" wx:if="{{!isEchartsReady}}">
+        <text>正在生成趋势图...</text>
+      </view>
+    </view>
+  </view>
+</view>

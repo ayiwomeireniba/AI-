@@ -1,0 +1,643 @@
+/* pages/index/index.wxss */
+.container {
+  padding-top: 20rpx;
+  background-color: var(--background-color);
+  overflow-x: hidden;
+}
+
+/* 顶部玻璃态卡片 */
+.header-card {
+  padding: 40rpx;
+  border-radius: var(--radius-lg);
+  margin-bottom: 40rpx;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-soft);
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 40rpx;
+}
+
+.date-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.today-text {
+  font-size: 36rpx;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 8rpx;
+}
+
+.date-text {
+  font-size: 24rpx;
+  color: var(--text-sub);
+}
+
+.badge-mini {
+  background: rgba(102, 126, 234, 0.1);
+  padding: 8rpx 20rpx;
+  border-radius: 40rpx;
+  font-size: 22rpx;
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
+.amount-section {
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+
+.amount-label {
+  font-size: 26rpx;
+  color: var(--text-sub);
+  margin-bottom: 12rpx;
+  display: block;
+}
+
+.amount-value {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+}
+
+.currency {
+  font-size: 40rpx;
+  font-weight: 500;
+  margin-right: 8rpx;
+}
+
+.amount {
+  font-size: 80rpx;
+  font-weight: 800;
+}
+
+.budget-section {
+  width: 100%;
+}
+
+.budget-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 22rpx;
+  color: var(--text-sub);
+  margin-bottom: 12rpx;
+}
+
+.over-text {
+  color: var(--warning-color);
+  font-weight: 700;
+}
+
+.progress-bg {
+  height: 12rpx;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 10rpx;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: 10rpx;
+  transition: width 0.6s ease;
+}
+
+/* 列表滚动区域 */
+.bill-list-scroll {
+  flex: 1;
+  padding-bottom: 240rpx; /* 为底部按钮留出空间 */
+}
+
+.section-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24rpx;
+  padding: 0 8rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.bill-count {
+  font-size: 24rpx;
+  color: var(--text-sub);
+  background: rgba(0, 0, 0, 0.03);
+  padding: 4rpx 16rpx;
+  border-radius: 20rpx;
+}
+
+/* 分类分组样式 */
+.category-group {
+  margin-bottom: 24rpx;
+}
+
+.category-header {
+  padding: 32rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cat-left {
+  display: flex;
+  align-items: center;
+}
+
+.cat-icon {
+  font-size: 40rpx;
+  margin-right: 20rpx;
+}
+
+.cat-name {
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.cat-right {
+  display: flex;
+  align-items: center;
+}
+
+.cat-total {
+  font-size: 30rpx;
+  font-weight: 700;
+  margin-right: 16rpx;
+}
+
+.expand-icon {
+  font-size: 24rpx;
+  color: var(--text-sub);
+  transition: transform 0.3s ease;
+}
+
+.expand-icon.expanded {
+  transform: rotate(90deg);
+}
+
+.bill-items-container {
+  border-top: 1rpx solid rgba(0, 0, 0, 0.03);
+}
+
+/* 左滑删除实现 */
+.movable-area {
+  width: 100%;
+  height: 120rpx;
+  background: #ff3b30;
+}
+
+.movable-view {
+  width: calc(100% + 140rpx);
+  height: 120rpx;
+  display: flex;
+  background: white;
+}
+
+.bill-item {
+  width: 750rpx; /* 这里使用 rpx 有点硬编码，后续优化 */
+  width: 100vw;
+  height: 120rpx;
+  padding: 0 32rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  background: white;
+}
+
+.bill-main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.bill-merchant {
+  font-size: 28rpx;
+  font-weight: 500;
+  margin-bottom: 4rpx;
+}
+
+.bill-desc {
+  font-size: 22rpx;
+  color: var(--text-sub);
+}
+
+.bill-amount {
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.delete-btn {
+  width: 140rpx;
+  height: 120rpx;
+  background: #ff3b30;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80rpx 0;
+}
+
+.empty-icon-box {
+  width: 160rpx;
+  height: 160rpx;
+  background: rgba(102, 126, 234, 0.05);
+  border-radius: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 32rpx;
+}
+
+.empty-icon {
+  font-size: 80rpx;
+}
+
+.empty-text {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 12rpx;
+}
+
+.empty-subtext {
+  font-size: 24rpx;
+  color: var(--text-sub);
+}
+
+/* 底部固定区域 (仿微信语音) */
+.fixed-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 240rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 60rpx;
+  background: linear-gradient(to top, var(--background-color) 80%, transparent);
+  pointer-events: none;
+  z-index: 100;
+}
+
+.wechat-voice-container {
+  width: 100%;
+  padding: 0 40rpx;
+  box-sizing: border-box;
+  pointer-events: auto;
+}
+
+.wechat-record-btn {
+  width: 100%;
+  height: 100rpx;
+  background: #ffffff;
+  border-radius: 12rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+  border: 1rpx solid rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.wechat-record-btn.active {
+  background: #e5e5e5;
+  transform: scale(0.98);
+  box-shadow: inset 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.btn-text {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+/* 录音动态波纹 */
+.voice-wave-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+  margin-bottom: 30rpx;
+  height: 80rpx;
+}
+
+.voice-wave-bar {
+  width: 6rpx;
+  background: var(--primary-color);
+  border-radius: 3rpx;
+  animation: wave 0.5s infinite ease-in-out;
+}
+
+@keyframes wave {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(1.5); }
+}
+
+.voice-wave-bar:nth-child(2) { animation-delay: 0.1s; }
+.voice-wave-bar:nth-child(3) { animation-delay: 0.2s; }
+.voice-wave-bar:nth-child(4) { animation-delay: 0.15s; }
+.voice-wave-bar:nth-child(5) { animation-delay: 0.05s; }
+
+.recording-time-float {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 8rpx 24rpx;
+  border-radius: 30rpx;
+  color: white;
+  font-size: 24rpx;
+  margin-bottom: 20rpx;
+}
+
+/* 加载动画 */
+.loading-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader {
+  width: 80rpx;
+  height: 80rpx;
+  border: 6rpx solid rgba(102, 126, 234, 0.1);
+  border-top: 6rpx solid var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 40rpx;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 28rpx;
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+/* 弹窗样式 */
+.modal-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40rpx;
+}
+
+.modal-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  position: relative;
+  width: 100%;
+  padding: 48rpx;
+  box-sizing: border-box;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 32rpx;
+  font-weight: 800;
+  margin-bottom: 40rpx;
+}
+
+.close-btn {
+  font-size: 40rpx;
+  color: var(--text-sub);
+}
+
+.ai-bill-card {
+  background: rgba(0, 0, 0, 0.03);
+  padding: 32rpx;
+  border-radius: var(--radius-md);
+  margin-bottom: 48rpx;
+}
+
+.edit-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24rpx;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.05);
+  padding-bottom: 16rpx;
+}
+
+.edit-row.main {
+  border-bottom: none;
+  margin-top: 32rpx;
+}
+
+.edit-label {
+  font-size: 24rpx;
+  color: var(--text-sub);
+  width: 80rpx;
+}
+
+.edit-input {
+  flex: 1;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.amount-input-box {
+  display: flex;
+  align-items: baseline;
+  flex: 1;
+}
+
+.edit-currency {
+  font-size: 32rpx;
+  font-weight: 700;
+  margin-right: 8rpx;
+  color: var(--primary-color);
+}
+
+.edit-amount-input {
+  font-size: 48rpx;
+  font-weight: 800;
+  color: var(--primary-color);
+}
+
+.ai-summary {
+  font-size: 26rpx;
+  font-style: italic;
+  color: var(--text-sub);
+  margin-top: 24rpx;
+  text-align: center;
+}
+
+/* 多笔确认弹窗 */
+.multiple-bills-list {
+  max-height: 50vh;
+  margin-bottom: 32rpx;
+}
+
+.multiple-bill-card {
+  display: flex;
+  align-items: center;
+  padding: 24rpx;
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: var(--radius-md);
+  margin-bottom: 16rpx;
+  transition: all 0.2s;
+  border: 2rpx solid transparent;
+}
+
+.multiple-bill-card.selected {
+  background: white;
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-soft);
+}
+
+.bill-check {
+  padding-right: 24rpx;
+}
+
+.check-box {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 20rpx;
+  border: 4rpx solid #e5e5e5;
+  transition: all 0.2s;
+}
+
+.check-box.checked {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.bill-edit-content {
+  flex: 1;
+}
+
+.multi-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8rpx;
+}
+
+.multi-cat {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: var(--text-main);
+  width: 50%;
+}
+
+.multi-amt-box {
+  display: flex;
+  align-items: baseline;
+  font-size: 28rpx;
+  font-weight: 800;
+  color: var(--primary-color);
+}
+
+.multi-amt {
+  width: 120rpx;
+  text-align: right;
+  margin-left: 4rpx;
+}
+
+.multi-merchant {
+  font-size: 22rpx;
+  color: var(--text-sub);
+}
+
+.modal-btns {
+  display: flex;
+  gap: 24rpx;
+}
+
+.modal-btn {
+  flex: 1;
+  height: 88rpx;
+  line-height: 88rpx;
+  border-radius: 44rpx;
+  font-size: 28rpx;
+  font-weight: 700;
+  border: none;
+  padding: 0; /* 必须清除默认 padding 才能居中 */
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.modal-btn.edit {
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--text-main);
+}
+
+.modal-btn.confirm {
+  background: var(--primary-gradient);
+  color: white;
+}
+
+/* 权限弹窗特有样式 */
+.permission-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40rpx 0;
+}
+
+.permission-icon-box {
+  font-size: 100rpx;
+  margin-bottom: 30rpx;
+  background: rgba(255, 204, 51, 0.1);
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.permission-desc {
+  font-size: 28rpx;
+  color: var(--text-sub);
+  text-align: center;
+  line-height: 1.6;
+  padding: 0 40rpx;
+  margin-bottom: 40rpx;
+}
