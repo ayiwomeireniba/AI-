@@ -57,14 +57,6 @@ git clone - https://github.com/ayiwomeireniba/AI-.git
 
 ---
 
-## 📝 待办事项 (TODO)
-
-- [ ] 集成更多 AI 模型以提升解析准确度
-- [ ] 增加多账本协作功能
-- [ ] 支持导出 Excel 报表
-
----
-
 ## 贡献者
 
 - **Linyuhan** - *核心开发与设计* 
