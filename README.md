@@ -40,7 +40,7 @@
 
 ### 1. 克隆项目
 ```bash
-git clone [此处填写你的GitHub项目仓库地址]
+git clone - https://github.com/ayiwomeireniba/AI-.git
 ```
 
 ### 2. 配置云开发环境
@@ -67,6 +67,6 @@ git clone [此处填写你的GitHub项目仓库地址]
 
 ## 贡献者
 
-- **Linyuhan** - *核心开发与设计* - https://github.com/ayiwomeireniba/AI-.git
+- **Linyuhan** - *核心开发与设计* 
 
 ---
