@@ -8,7 +8,7 @@
 
 | 首页 (明细) | 统计报表 | 功能演示 |
 | :---: | :---: | :---: |
-| <img width="603" height="1311" alt="IMG_5239" src="https://github.com/user-attachments/assets/e7347d7c-a8b9-410b-8c98-5df376bde63e" />| <img width="603" height="1311" alt="IMG_5240" src="https://github.com/user-attachments/assets/1a50dd6a-b3ee-4f5c-9e1a-ed4675187ad4" />| (https://github.com/user-attachments/assets/c561a5de-452b-424d-a498-20cc539cda67)|
+| <img width="603" height="1311" alt="IMG_5239" src="https://github.com/user-attachments/assets/e7347d7c-a8b9-410b-8c98-5df376bde63e" />| <img width="603" height="1311" alt="IMG_5240" src="https://github.com/user-attachments/assets/1a50dd6a-b3ee-4f5c-9e1a-ed4675187ad4" />| ![语音输入](https://github.com/user-attachments/assets/c775f550-6982-4a9b-b6ad-8a93a98da409)|
 
 ---
 
